@@ -4,20 +4,10 @@ import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
 
-function NewRecipe({ user }) {
-  const [title, setTitle] = useState("My Awesome Recipe");
-  const [minutesToComplete, setMinutesToComplete] = useState("30");
-  const [instructions, setInstructions] = useState(`Here's how you make it.
-  
-## Ingredients
-
-- 1c Sugar
-- 1c Spice
-
-## Instructions
-
-**Mix** sugar and spice. _Bake_ for 30 minutes.
-  `);
+function NewSong({ user }) {
+  const [title, setTitle] = useState("");
+  const [artist, setArtist] = useState("");
+  const [album, setAlbum] = useState(``);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -25,15 +15,15 @@ function NewRecipe({ user }) {
   function handleSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
-    fetch("/recipes", {
+    fetch("/songs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         title,
-        instructions,
-        minutes_to_complete: minutesToComplete,
+        album,
+        artist: artist,
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -48,7 +38,7 @@ function NewRecipe({ user }) {
   return (
     <Wrapper>
       <WrapperChild>
-        <h2>Create Recipe</h2>
+        <h2>Create Song Entry</h2>
         <form onSubmit={handleSubmit}>
           <FormField>
             <Label htmlFor="title">Title</Label>
@@ -60,26 +50,26 @@ function NewRecipe({ user }) {
             />
           </FormField>
           <FormField>
-            <Label htmlFor="minutesToComplete">Minutes to complete</Label>
+            <Label htmlFor="artist">Artist</Label>
             <Input
-              type="number"
-              id="minutesToComplete"
-              value={minutesToComplete}
-              onChange={(e) => setMinutesToComplete(e.target.value)}
+              type="text"
+              id="artist"
+              value={artist}
+              onChange={(e) => setArtist(e.target.value)}
             />
           </FormField>
           <FormField>
-            <Label htmlFor="instructions">Instructions</Label>
-            <Textarea
-              id="instructions"
-              rows="10"
-              value={instructions}
-              onChange={(e) => setInstructions(e.target.value)}
+            <Label htmlFor="album">Album</Label>
+            <Input
+              id="album"
+              type="text"
+              value={album}
+              onChange={(e) => setAlbum(e.target.value)}
             />
           </FormField>
           <FormField>
             <Button color="primary" type="submit">
-              {isLoading ? "Loading..." : "Submit Recipe"}
+              {isLoading ? "Loading..." : "Submit"}
             </Button>
           </FormField>
           <FormField>
@@ -92,11 +82,11 @@ function NewRecipe({ user }) {
       <WrapperChild>
         <h1>{title}</h1>
         <p>
-          <em>Time to Complete: {minutesToComplete} minutes</em>
-          &nbsp;·&nbsp;
-          <cite>By {user.username}</cite>
+          <em>Artist: {artist} </em>
+          &nbsp;&nbsp;
+          {/* <cite>By {user.username}</cite> */}
         </p>
-        <ReactMarkdown>{instructions}</ReactMarkdown>
+        <ReactMarkdown>{album}</ReactMarkdown>
       </WrapperChild>
     </Wrapper>
   );
@@ -114,4 +104,4 @@ const WrapperChild = styled.div`
   flex: 1;
 `;
 
-export default NewRecipe;
+export default NewSong;

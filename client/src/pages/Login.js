@@ -9,7 +9,7 @@ function Login({ onLogin }) {
 
   return (
     <Wrapper>
-      <Logo>GameGraders</Logo>
+      <Logo>WikiSongs</Logo>
       {showLogin ? (
         <>
           <LoginForm onLogin={onLogin} />

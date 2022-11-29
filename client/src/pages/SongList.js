@@ -4,36 +4,36 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
 
-function RecipeList() {
-  const [recipes, setRecipes] = useState([]);
+function SongList() {
+  const [songs, setSongs] = useState([]);
 
   useEffect(() => {
-    fetch("/recipes")
+    fetch("/songs")
       .then((r) => r.json())
-      .then(setRecipes);
+      .then(setSongs);
   }, []);
 
   return (
     <Wrapper>
-      {recipes.length > 0 ? (
-        recipes.map((recipe) => (
-          <Recipe key={recipe.id}>
+      {songs.length > 0 ? (
+        songs.map((song) => (
+          <Song key={song.id}>
             <Box>
-              <h2>{recipe.title}</h2>
+              <h2>{song.title}</h2>
               <p>
-                <em>Time to Complete: {recipe.minutes_to_complete} minutes</em>
+                <em>Artist: {song.artist} </em>
                 &nbsp;·&nbsp;
-                <cite>By {recipe.user.username}</cite>
+                {/* <cite>By {song.user.username}</cite> */}
               </p>
-              <ReactMarkdown>{recipe.instructions}</ReactMarkdown>
+              <ReactMarkdown>{song.album}</ReactMarkdown>
             </Box>
-          </Recipe>
+          </Song>
         ))
       ) : (
         <>
-          <h2>No Recipes Found</h2>
+          <h2>No Songs Found</h2>
           <Button as={Link} to="/new">
-            Make a New Recipe
+            Make a New Song Entry
           </Button>
         </>
       )}
@@ -46,8 +46,8 @@ const Wrapper = styled.section`
   margin: 40px auto;
 `;
 
-const Recipe = styled.article`
+const Song = styled.article`
   margin-bottom: 24px;
 `;
 
-export default RecipeList;
+export default SongList;
