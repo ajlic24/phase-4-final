@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
+import { Button, Error, Input, FormField, Label} from "../styles";
 
 function SignUpForm({ onLogin }) {
   const [username, setUsername] = useState("");
@@ -29,7 +29,10 @@ function SignUpForm({ onLogin }) {
       if (r.ok) {
         r.json().then((user) => onLogin(user));
       } else {
-        r.json().then((err) => setErrors(err.errors));
+        r.json().then((err) => 
+        // console.log(err)
+        setErrors(err.errors)
+        );
       }
     });
   }
@@ -89,7 +92,8 @@ function SignUpForm({ onLogin }) {
       </FormField>
       <FormField>
         {errors.map((err) => (
-          <Error key={err}>{err}</Error>
+          <Error key={err}>{err}
+          </Error>
         ))}
       </FormField>
     </form>

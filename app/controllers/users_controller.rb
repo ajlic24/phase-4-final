@@ -10,8 +10,7 @@ class UsersController < ApplicationController
             session[:user_id] = user.id
             render json: user, status: :created
         else
-            byebug
-            render json: {error: user.errors.full_messages}, status: :unprocessable_entity            
+            render json: {errors: user.errors.full_messages}, status: :unprocessable_entity            
         end
     end
 

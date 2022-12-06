@@ -2,12 +2,14 @@ import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
 import ReactMarkdown from "react-markdown";
-import { Button, Error, FormField, Input, Label, Textarea } from "../styles";
+import { Button, Error, FormField, Input, Label} from "../styles";
 
 function NewSong({ user }) {
   const [title, setTitle] = useState("");
   const [artist, setArtist] = useState("");
   const [album, setAlbum] = useState(``);
+  const [genre, setGenre] = useState(``)
+  const [releaseYear, setReleaseYear] = useState(0)
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -21,9 +23,10 @@ function NewSong({ user }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title,
-        album,
-        artist: artist,
+        title: title,
+        genre: genre,
+        artist: {name: artist},
+        album: {name: album, release_year: releaseYear},
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -68,6 +71,24 @@ function NewSong({ user }) {
             />
           </FormField>
           <FormField>
+            <Label htmlFor="releaseYear">Year Released</Label>
+            <Input
+              id="releaseYear"
+              type="integer"
+              value={releaseYear}
+              onChange={(e) => setReleaseYear(e.target.value)}
+            />
+          </FormField>
+          <FormField>
+            <Label htmlFor="genre">Genre</Label>
+            <Input
+              id="genre"
+              type="text"
+              value={genre}
+              onChange={(e) => setGenre(e.target.value)}
+            />
+          </FormField>
+          <FormField>
             <Button color="primary" type="submit">
               {isLoading ? "Loading..." : "Submit"}
             </Button>
@@ -82,7 +103,7 @@ function NewSong({ user }) {
       <WrapperChild>
         <h1>{title}</h1>
         <p>
-          <em>Artist: {artist} </em>
+          <em>{artist} </em>
           &nbsp;&nbsp;
           {/* <cite>By {user.username}</cite> */}
         </p>

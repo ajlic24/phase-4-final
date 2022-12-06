@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_29_032659) do
+ActiveRecord::Schema.define(version: 2022_12_05_092904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "albums", force: :cascade do |t|
     t.string "name"
-    t.date "release_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "release_year"
   end
 
   create_table "artists", force: :cascade do |t|
@@ -31,8 +31,12 @@ ActiveRecord::Schema.define(version: 2022_11_29_032659) do
   create_table "songs", force: :cascade do |t|
     t.string "title"
     t.string "genre"
+    t.bigint "artist_id"
+    t.bigint "album_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["album_id"], name: "index_songs_on_album_id"
+    t.index ["artist_id"], name: "index_songs_on_artist_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,4 +46,6 @@ ActiveRecord::Schema.define(version: 2022_11_29_032659) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "songs", "albums"
+  add_foreign_key "songs", "artists"
 end
