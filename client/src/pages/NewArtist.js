@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
 import styled from "styled-components";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 import { Button, Error, FormField, Input, Label} from "../styles";
 
 function NewArtist({ user }) {
-  const [title, setTitle] = useState("");
-  const [artist, setArtist] = useState("");
-  const [album, setAlbum] = useState(``);
-  const [genre, setGenre] = useState(``)
-  const [releaseYear, setReleaseYear] = useState(0)
+//   const [title, setTitle] = useState("");
+  const [name, setName] = useState("");
+//   const [album, setAlbum] = useState(``);
+//   const [genre, setGenre] = useState(``)
+//   const [releaseYear, setReleaseYear] = useState(0)
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
@@ -23,10 +23,10 @@ function NewArtist({ user }) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        title: title,
-        genre: genre,
-        artist: {name: artist},
-        album: {name: album, release_year: releaseYear},
+        // title: title,
+        // genre: genre,
+        name: name,
+        // album: {name: album, release_year: releaseYear},
       }),
     }).then((r) => {
       setIsLoading(false);
@@ -57,8 +57,8 @@ function NewArtist({ user }) {
             <Input
               type="text"
               id="artist"
-              value={artist}
-              onChange={(e) => setArtist(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </FormField>
           {/* <FormField>
@@ -101,13 +101,13 @@ function NewArtist({ user }) {
         </form>
       </WrapperChild>
       <WrapperChild>
-        <h1>{title}</h1>
+        {/* <h1>{title}</h1> */}
         <p>
-          <em>{artist} </em>
+          <em>{name} </em>
           &nbsp;&nbsp;
           {/* <cite>By {user.username}</cite> */}
         </p>
-        <ReactMarkdown>{album}</ReactMarkdown>
+        {/* <ReactMarkdown>{album}</ReactMarkdown> */}
       </WrapperChild>
     </Wrapper>
   );
