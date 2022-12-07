@@ -4,8 +4,22 @@ class SongsController < ApplicationController
         render json: Song.all, status: :ok    
     end
 
+    def show
+        render json: Song.find_by(id: params[:id]), status: :ok
+    end
+
     def reset
         render json: Song.all.map(&:destroy), status: :ok
+    end
+
+    def update
+        song = Song.find_by(id: songs_params[:id])
+        song.update(songs_params)
+        if song.valid?
+            render json: song, status: :ok
+        else
+            render json: {errors: song.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     def destroy
@@ -41,7 +55,7 @@ class SongsController < ApplicationController
     private
 
     def songs_params
-        params.permit(:title, :genre, {artist: [:name]}, {album: [:name, :release_year]})
+        params.permit(:id, :title, :genre, {artist: [:name]}, {album: [:name, :release_year]})
     end
 
 end

@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "../pages/Login";
-import GameList from "../pages/SongList";
-import NewGame from "../pages/NewSong";
+import SongList from "../pages/SongList";
+import NewSong from "../pages/NewSong";
+import EditPage from "../pages/EditPage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -24,11 +25,14 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
+          <Route path="/edit/:id">
+            <EditPage />
+          </Route>
           <Route path="/new">
-            <NewGame user={user} />
+            <NewSong user={user} />
           </Route>
           <Route path="/">
-            <GameList />
+            <SongList />
           </Route>
         </Switch>
       </main>

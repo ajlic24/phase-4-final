@@ -18,6 +18,12 @@ function NavBar({ user, setUser }) {
         <Link to="/">WikiSongs</Link>
       </Logo>
       <Nav>
+        <Button as={Link} to="/add/artist">
+          New Artist
+        </Button>
+        <Button as={Link} to="/album/add">
+          New Album
+        </Button>
         <Button as={Link} to="/new">
           New Song
         </Button>

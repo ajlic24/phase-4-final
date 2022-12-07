@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ReactMarkdown from "react-markdown";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Box, Button } from "../styles";
@@ -19,13 +18,19 @@ function SongList() {
         songs.map((song) => (
           <Song key={song.id}>
             <Box>
-              <h2>{song.title}</h2>
+              <h2>{song.title} <Button as={Link} to={`/edit/${song.id}`}> Edit </Button> &nbsp; <Button as={Link} to="/delete"> Delete </Button> </h2>
               <p>
-                <em>Artist: {song.artist} </em>
-                &nbsp;·&nbsp;
-                {/* <cite>By {song.user.username}</cite> */}
+                <em>Artist: {song.artist.name} </em>
+                &nbsp;&nbsp; 
               </p>
-              <ReactMarkdown>{song.album}</ReactMarkdown>
+              <p>
+                <>Album: {song.album.name} </>
+                &nbsp;&nbsp; 
+              </p>
+              <p>
+                <>Released: {song.album.release_year} </>
+                &nbsp;&nbsp;
+              </p>
             </Box>
           </Song>
         ))
