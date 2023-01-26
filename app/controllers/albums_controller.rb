@@ -1,16 +1,12 @@
 class AlbumsController < ApplicationController
 
     def index
-        if session[:user_id]
-            render json: Album.all, status: :ok
-        else
-            render json: {error: "Not authorized"}, status: :unauthorized
-        end
+        render json: Album.all, status: :ok
     end
 
     def destroy
         album = Album.find_by(id: params[:id])
-        render json: album.delete, status: :ok
+        render json: album.delete, status: :no_content
     end
 
     def create

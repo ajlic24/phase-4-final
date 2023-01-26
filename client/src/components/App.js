@@ -6,6 +6,8 @@ import SongList from "../pages/SongList";
 import NewSong from "../pages/NewSong";
 import EditPage from "../pages/EditPage";
 import NewArtist from "../pages/NewArtist";
+import NewAlbum from "../pages/NewAlbum";
+import DeletePage from "../pages/DeletePage";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,8 +31,14 @@ function App() {
           <Route path="/artists/add">
             <NewArtist />
           </Route>
+          <Route path="/albums/add">
+            <NewAlbum />
+          </Route>
           <Route path="/edit/:id">
             <EditPage />
+          </Route>
+          <Route path="/delete/:id">
+            <DeletePage />
           </Route>
           <Route path="/new">
             <NewSong user={user} />

@@ -18,7 +18,7 @@ function SongList() {
         songs.map((song) => (
           <Song key={song.id}>
             <Box>
-              <h2>{song.title} <Button as={Link} to={`/edit/${song.id}`}> Edit </Button> &nbsp; <Button as={Link} to="/delete"> Delete </Button> </h2>
+              <h2>{song.title} <Button as={Link} to={`/edit/${song.id}`}> Edit </Button> &nbsp; <Button as={Link} to={`/delete/${song.id}`}> Delete </Button> </h2>
               <p>
                 <em>Artist: {song.artist.name} </em>
                 &nbsp;&nbsp; 
@@ -29,6 +29,10 @@ function SongList() {
               </p>
               <p>
                 <>Released: {song.album.release_year} </>
+                &nbsp;&nbsp;
+              </p>
+              <p>
+                <>Genre: {song.genre} </>
                 &nbsp;&nbsp;
               </p>
             </Box>
